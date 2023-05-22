@@ -4,13 +4,13 @@
  * @description Uses Apex UUID to generate UUIDs
  */
 
-public class UUIDGenerator implements Iterator<Object> {
+public class UUIDGenerator implements Iterator<String> {
 
     public Boolean hasNext() {
         return true;
     }
 
-    public Object next() {
+    public String next() {
         return new Uuid().getValue();
     }
 }

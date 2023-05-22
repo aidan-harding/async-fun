@@ -13,6 +13,7 @@ global without sharing class AccountStartQueueables implements nebc.AfterInsert 
 
         if(!queueableAccounts.isEmpty()) {
             System.enqueueJob(new AccountRecordCreationHistoryQueueable(queueableAccounts), 0);
+            System.enqueueJob(new AccountUUIDQueueable(queueableAccounts), 0);
         }
     }
 }
