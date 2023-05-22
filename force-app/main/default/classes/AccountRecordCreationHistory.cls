@@ -9,6 +9,7 @@ global without sharing class AccountRecordCreationHistory implements nebc.AfterI
     public static nebc.Function accountToRecordCreationHistory =
             new nebc.SObjectFromPrototype(new Record_Creation_History__c())
                     .putField(Record_Creation_History__c.Record_Id__c, Account.Id)
+                    .putField(Record_Creation_History__c.Account__c, Account.Id)
                     .putField(Record_Creation_History__c.Record_Created_By__c, Account.CreatedById)
                     .putField(Record_Creation_History__c.Record_Created_Date__c, Account.CreatedDate);
 

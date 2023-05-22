@@ -4,23 +4,16 @@
  * @description Sets Account.AccountNumber to a UUID. Handles one Account per execution
  */
 
-public class AccountUUIDQueueable implements Queueable {
+public without sharing class AccountUUIDQueueable extends AccountQueueableHandler {
 
-    private List<Account> theAccounts;
-
-    public AccountUUIDQueueable(List<Account> theAccounts) {
-        this.theAccounts = theAccounts.deepClone(true, true);
+    public AccountUUIDQueueable(Set<Id> accountToProcess) {
+        super(accountToProcess);
     }
 
-    public void execute(QueueableContext qc) {
-        Account thisAccount  = theAccounts.remove(0);
-
+    public void execute(Account thisAccount) {
         thisAccount.AccountNumber = new UUIDGenerator().next();
+        thisAccount.Apex_UUID_Status__c = 'Complete';
 
         update thisAccount;
-
-        if(!theAccounts.isEmpty()) {
-            System.enqueueJob(this);
-        }
     }
 }

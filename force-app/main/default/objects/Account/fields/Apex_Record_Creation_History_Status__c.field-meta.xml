@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Apex_Record_Creation_History_Status__c</fullName>
+    <description>Shows the status of creating a Record Creation History for an Account using Queueable Apex. Pending means that it should be running and complete soon.</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Shows the status of creating a Record Creation History for an Account using Queueable Apex. Pending means that it should be running and complete soon.</inlineHelpText>
+    <label>Apex Record Creation History Status</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetName>Async_Status</valueSetName>
+    </valueSet>
+</CustomField>

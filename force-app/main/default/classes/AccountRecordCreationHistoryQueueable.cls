@@ -4,21 +4,16 @@
  * @description Creates a Record_Creation_History__c history for an inserted Account. Handles one Account per invocation
  */
 
-public without sharing class AccountRecordCreationHistoryQueueable implements Queueable {
+public without sharing class AccountRecordCreationHistoryQueueable extends AccountQueueableHandler {
 
-    private List<Account> theAccounts;
-
-    public AccountRecordCreationHistoryQueueable(List<Account> theAccounts) {
-        this.theAccounts = theAccounts.deepClone(true, true);
+    public AccountRecordCreationHistoryQueueable(Set<Id> accountToProcess) {
+        super(accountToProcess);
     }
 
-    public void execute(QueueableContext qc) {
-        Account thisAccount  = theAccounts.remove(0);
-
+    public void execute(Account thisAccount) {
         insert (Record_Creation_History__c)AccountRecordCreationHistory.accountToRecordCreationHistory.call(thisAccount);
 
-        if(!theAccounts.isEmpty()) {
-            System.enqueueJob(this);
-        }
+        thisAccount.Apex_Record_Creation_History_Status__c = 'Complete';
+        update thisAccount;
     }
 }

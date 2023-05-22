@@ -6,14 +6,20 @@
         <label>Pending</label>
     </customValue>
     <customValue>
-        <fullName>Running</fullName>
-        <default>false</default>
-        <label>Running</label>
-    </customValue>
-    <customValue>
         <fullName>Complete</fullName>
         <default>false</default>
         <label>Complete</label>
+    </customValue>
+    <customValue>
+        <fullName>Error</fullName>
+        <default>false</default>
+        <label>Error</label>
+    </customValue>
+    <customValue>
+        <fullName>Running</fullName>
+        <default>false</default>
+        <isActive>false</isActive>
+        <label>Running</label>
     </customValue>
     <masterLabel>Async Status</masterLabel>
     <sorted>false</sorted>

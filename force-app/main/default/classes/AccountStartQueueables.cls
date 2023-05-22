@@ -7,13 +7,23 @@
 global without sharing class AccountStartQueueables implements nebc.AfterInsert {
 
     global void handleAfterInsert(List<Account> newList) {
-        List<Account> queueableAccounts = new nebc.LazySObjectIterator(newList)
-                .filterOnField(Account.Automation_Type__c, 'Asynchronous Apex')
-                .toList();
+        Set<Id> recordCreationAccounts = new Set<Id>();
+        Set<Id> uuidAccounts = new Set<Id>();
 
-        if(!queueableAccounts.isEmpty()) {
-            System.enqueueJob(new AccountRecordCreationHistoryQueueable(queueableAccounts), 0);
-            System.enqueueJob(new AccountUUIDQueueable(queueableAccounts), 0);
+        for(Account thisAccount : newList) {
+            if(thisAccount.Apex_Record_Creation_History_Status__c == 'Pending') {
+                recordCreationAccounts.add(thisAccount.Id);
+            }
+            if(thisAccount.Apex_UUID_Status__c == 'Pending') {
+                uuidAccounts.add(thisAccount.Id);
+            }
+        }
+
+        if(!recordCreationAccounts.isEmpty()) {
+            System.enqueueJob(new AccountRecordCreationHistoryQueueable(recordCreationAccounts), 0);
+        }
+        if(!uuidAccounts.isEmpty()) {
+            System.enqueueJob(new AccountUUIDQueueable(uuidAccounts), 0);
         }
     }
 }
