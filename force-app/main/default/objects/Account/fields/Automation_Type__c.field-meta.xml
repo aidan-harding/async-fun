@@ -8,23 +8,6 @@
     <type>Picklist</type>
     <valueSet>
         <restricted>true</restricted>
-        <valueSetDefinition>
-            <sorted>false</sorted>
-            <value>
-                <fullName>Synchronous Apex</fullName>
-                <default>true</default>
-                <label>Synchronous Apex</label>
-            </value>
-            <value>
-                <fullName>Asynchronous Apex</fullName>
-                <default>false</default>
-                <label>Asynchronous Apex</label>
-            </value>
-            <value>
-                <fullName>Asynchronous Flow</fullName>
-                <default>false</default>
-                <label>Asynchronous Flow</label>
-            </value>
-        </valueSetDefinition>
+        <valueSetName>Automation_Type</valueSetName>
     </valueSet>
 </CustomField>
