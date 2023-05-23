@@ -6,7 +6,7 @@
 
 public abstract inherited sharing class AccountQueueableHandler implements Queueable {
 
-    // Use a list here not an iterator because the iterator returned from a Set<Id> d
+    // Use a list here not an iterator because the iterator returned from a Set<Id> causes the Queueable to fail
     private List<Id> accountsToProcess;
 
     public AccountQueueableHandler(Set<Id> accountsToProcess) {

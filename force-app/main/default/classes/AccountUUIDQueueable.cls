@@ -6,8 +6,8 @@
 
 public without sharing class AccountUUIDQueueable extends AccountQueueableHandler {
 
-    public AccountUUIDQueueable(Set<Id> accountToProcess) {
-        super(accountToProcess);
+    public AccountUUIDQueueable(Set<Id> accountIds) {
+        super(accountIds);
     }
 
     public void execute(Account thisAccount) {

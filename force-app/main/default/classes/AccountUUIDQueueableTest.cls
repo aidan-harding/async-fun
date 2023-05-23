@@ -9,7 +9,7 @@ private class AccountUUIDQueueableTest {
     static nebc.TestRecordSource testRecordSource = new nebc.TestRecordSource();
 
     @IsTest
-    static void testBehavior() {
+    static void testBehaviour() {
         Test.startTest();
         Account testAccount = (Account)testRecordSource.getRecord(Account.SObjectType)
                 .put(Account.Automation_Type__c, 'Asynchronous Apex')
