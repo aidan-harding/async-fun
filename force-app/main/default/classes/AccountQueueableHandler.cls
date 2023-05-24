@@ -8,19 +8,30 @@ public abstract inherited sharing class AccountQueueableHandler implements Queue
 
     // Use a list here not an iterator because the iterator returned from a Set<Id> causes the Queueable to fail
     private List<Id> accountsToProcess;
+    private Boolean queryForUpdate = false;
 
     public AccountQueueableHandler(Set<Id> accountsToProcess) {
         this.accountsToProcess = new List<Id>(accountsToProcess);
     }
 
+    public AccountQueueableHandler setQueryForUpdate(Boolean queryForUpdate) {
+        this.queryForUpdate = queryForUpdate == true; // null-safe
+        return this;
+    }
+
     public void execute(QueueableContext qc) {
         Id thisAccountId = accountsToProcess.remove(0);
-        Account thisAccount = [
-                SELECT Id, AccountNumber, CreatedById, CreatedDate,
-                        Apex_UUID_Status__c, Apex_Record_Creation_History_Status__c
-                FROM Account
-                WHERE Id = :thisAccountId
-        ];
+
+        String query = 'SELECT Id, AccountNumber, CreatedById, CreatedDate,\n' +
+                ' Apex_UUID_Status__c, Apex_Record_Creation_History_Status__c\n' +
+                ' FROM Account\n' +
+                ' WHERE Id = :thisAccountId';
+
+        if(queryForUpdate) {
+            query += '\n FOR UPDATE';
+        }
+
+        Account thisAccount = Database.query(query);
 
         execute(thisAccount.clone(true, true, true));
 

@@ -4,7 +4,10 @@
  * @description When Automation_Type__c = 'Asynchronous Apex', starts the Account Queueables
  */
 
+@JsonAccess(Deserializable='always')
 global without sharing class AccountStartQueueables implements nebc.AfterInsert {
+
+    private Boolean queryForUpdate;
 
     global void handleAfterInsert(List<Account> newList) {
         Set<Id> recordCreationAccounts = new Set<Id>();
@@ -20,10 +23,15 @@ global without sharing class AccountStartQueueables implements nebc.AfterInsert 
         }
 
         if(!recordCreationAccounts.isEmpty()) {
-            System.enqueueJob(new AccountRecordCreationHistoryQueueable(recordCreationAccounts), 0);
+            System.enqueueJob(
+                    new AccountRecordCreationHistoryQueueable(recordCreationAccounts).setQueryForUpdate(queryForUpdate),
+                    0
+            );
         }
         if(!uuidAccounts.isEmpty()) {
-            System.enqueueJob(new AccountUUIDQueueable(uuidAccounts), 0);
+            System.enqueueJob(new AccountUUIDQueueable(uuidAccounts).setQueryForUpdate(queryForUpdate),
+                    0
+            );
         }
     }
 }

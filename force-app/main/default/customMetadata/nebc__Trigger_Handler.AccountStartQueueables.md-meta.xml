@@ -24,7 +24,9 @@
     </values>
     <values>
         <field>nebc__Parameters__c</field>
-        <value xsi:nil="true"/>
+        <value xsi:type="xsd:string">{
+  &quot;queryForUpdate&quot;: true
+}</value>
     </values>
     <values>
         <field>nebc__SObject__c</field>
