@@ -39,7 +39,7 @@ public abstract inherited sharing class AccountQueueableHandler implements Queue
             if(Test.isRunningTest()) {
                 execute(qc);
             } else {
-                System.enqueueJob(this);
+                System.enqueueJob(this, 0);
             }
         }
     }
