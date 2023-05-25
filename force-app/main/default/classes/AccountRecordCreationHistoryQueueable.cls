@@ -11,9 +11,12 @@ public without sharing class AccountRecordCreationHistoryQueueable extends Accou
     }
 
     public void execute(Account thisAccount) {
-        insert (Record_Creation_History__c)
-                AccountRecordCreationHistory.accountToRecordCreationHistory
-                        .call(thisAccount);
+        insert new Record_Creation_History__c(
+                Record_Id__c = thisAccount.Id,
+                Account__c = thisAccount.Id,
+                Record_Created_By__c = thisAccount.CreatedById,
+                Record_Created_Date__c = thisAccount.CreatedDate
+        );
 
         thisAccount.Apex_Record_Creation_History_Status__c = 'Complete';
         update thisAccount;
