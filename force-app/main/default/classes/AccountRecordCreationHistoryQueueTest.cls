@@ -31,11 +31,11 @@ private class AccountRecordCreationHistoryQueueTest {
     }
 
     @IsTest
-    static void fiveRecords() {
+    static void sixRecords() {
         Test.startTest();
         List<Account> testAccounts = testRecordSource.getRecord(Account.SObjectType)
                 .put(Account.Automation_Type__c, 'Asynchronous Apex')
-                .withInsert(5);
+                .withInsert(6);
         Test.stopTest();
 
         nebc.SObjectIndex histories = new nebc.SObjectIndex(Record_Creation_History__c.Record_Id__c)

@@ -23,11 +23,11 @@ private class AccountUUIDQueueableTest {
     }
 
     @IsTest
-    static void fiveRecords() {
+    static void sixRecords() {
         Test.startTest();
         List<Account> testAccounts = testRecordSource.getRecord(Account.SObjectType)
                 .put(Account.Automation_Type__c, 'Asynchronous Apex')
-                .withInsert(5);
+                .withInsert(6);
         Test.stopTest();
 
         testAccounts = [SELECT AccountNumber, Apex_UUID_Status__c FROM Account WHERE Id IN :testAccounts];
