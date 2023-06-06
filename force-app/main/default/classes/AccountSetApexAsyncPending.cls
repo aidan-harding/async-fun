@@ -7,10 +7,11 @@
 
 global without sharing class AccountSetApexAsyncPending implements nebc.BeforeInsert {
     public void handleBeforeInsert(List<Account> newList) {
-        new nebc.LazySObjectIterator(newList)
-                .filterOnField(Account.Automation_Type__c, 'Asynchronous Apex')
-                .put(Account.Apex_Record_Creation_History_Status__c, 'Pending')
-                .put(Account.Apex_UUID_Status__c, 'Pending')
-                .forEach();
+        for(Account thisAccount : newList) {
+            if(thisAccount.Automation_Type__c == 'Asynchronous Apex') {
+                thisAccount.Apex_Record_Creation_History_Status__c = 'Pending';
+                thisAccount.Apex_UUID_Status__c = 'Pending';
+            }
+        }
     }
 }
