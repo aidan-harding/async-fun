@@ -20,7 +20,7 @@ private class AccountUUIDTest {
         accounts = [SELECT AccountNumber FROM Account WHERE Id IN :accounts];
 
         for(Integer i=0; i < accounts.size(); i++) {
-            Assert.isNotNull(accounts[i].AccountNumber, 'Failed on row ' + i);
+            Assert.isTrue(Uuid.isValid(accounts[i].AccountNumber), 'Failed on row ' + i);
             uuids.add(accounts[i].AccountNumber);
         }
 

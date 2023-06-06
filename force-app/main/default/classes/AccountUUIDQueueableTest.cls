@@ -18,7 +18,7 @@ private class AccountUUIDQueueableTest {
 
         testAccount = [SELECT AccountNumber, Apex_UUID_Status__c FROM Account WHERE Id = :testAccount.Id];
 
-        Assert.isNotNull(testAccount.AccountNumber);
+        Assert.isTrue(Uuid.isValid(testAccount.AccountNumber));
         Assert.areEqual('Complete', testAccount.Apex_UUID_Status__c);
     }
 
@@ -33,7 +33,7 @@ private class AccountUUIDQueueableTest {
         testAccounts = [SELECT AccountNumber, Apex_UUID_Status__c FROM Account WHERE Id IN :testAccounts];
 
         for(Account testAccount : testAccounts) {
-            Assert.isNotNull(testAccount.AccountNumber);
+            Assert.isTrue(Uuid.isValid(testAccount.AccountNumber));
             Assert.areEqual('Complete', testAccount.Apex_UUID_Status__c);
         }
     }
